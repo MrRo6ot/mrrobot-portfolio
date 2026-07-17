@@ -12,7 +12,7 @@ export default function ScanLine() {
         top: "100%",
       }}
       transition={{
-        duration: 4,
+        duration: 3,
         repeat: Infinity,
         ease: "linear",
       }}

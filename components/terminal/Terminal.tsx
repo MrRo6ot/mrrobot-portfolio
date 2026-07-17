@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { executeCommand } from "./engine";
 import BootSequence from "./BootSequence";
 
@@ -10,20 +10,26 @@ type Line = {
 };
 
 export default function Terminal() {
+  const terminalRef = useRef<HTMLDivElement>(null);
   const [booted, setBooted] = useState(false);
   const [input, setInput] = useState("");
 
   const [history, setHistory] = useState<Line[]>([
     {
       type: "output",
-      content: "MR.ROBOT Terminal v1.0",
+      content: "Mr.Robot Terminal v1.0",
     },
     {
       type: "output",
       content: "Type 'help' to see available commands.",
     },
   ]);
-
+  useEffect(() => {
+    if (terminalRef.current) {
+      terminalRef.current.scrollTop =
+        terminalRef.current.scrollHeight;
+    }
+  }, [history]);
 
   function handleCommand() {
     if (!input.trim()) return;
@@ -113,8 +119,10 @@ export default function Terminal() {
 
       {/* Body */}
       <div
+        ref={terminalRef}
         className="
-        min-h-[260px]
+        h-[320px]
+        overflow-y-auto
         space-y-2
         p-5
         font-mono
@@ -149,7 +157,7 @@ export default function Terminal() {
         <div className="flex">
 
           <span className="text-green-400">
-            root@mrrobot:~$
+            root@root:~$
           </span>
 
           <input

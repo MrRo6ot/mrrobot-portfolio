@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTyping } from "./useTyping";
 
 
 const bootLines = [
@@ -18,53 +19,78 @@ export default function BootSequence({
   onComplete: () => void;
 }) {
 
-  const [lines, setLines] = useState<string[]>([]);
+  const [currentLine, setCurrentLine] = useState(0);
+  const [completedLines, setCompletedLines] = useState<string[]>([]);
+
+
+  const typedText = useTyping(
+    bootLines[currentLine],
+    40
+  );
 
 
   useEffect(() => {
 
-    let index = 0;
+    if (
+      typedText === bootLines[currentLine]
+    ) {
+
+      const timer = setTimeout(() => {
 
 
-    const timer = setInterval(() => {
-
-      setLines((prev) => [
-        ...prev,
-        bootLines[index],
-      ]);
+        setCompletedLines((prev) => [
+          ...prev,
+          typedText,
+        ]);
 
 
-      index++;
+        if(currentLine < bootLines.length - 1){
+
+          setCurrentLine((prev)=>prev + 1);
+
+        } else {
+
+          setTimeout(() => {
+            onComplete();
+          },650);
+
+        }
 
 
-      if(index === bootLines.length){
-
-        clearInterval(timer);
+      },100);
 
 
-        setTimeout(() => {
-          onComplete();
-        },1000);
+      return () => clearTimeout(timer);
 
-      }
+    }
 
 
-    },700);
+  }, [
+    typedText,
+    currentLine,
+    onComplete
+  ]);
 
-
-    return () => clearInterval(timer);
-
-  },[onComplete]);
 
 
   return (
-    <div className="font-mono text-sm text-green-400">
+    <div className="space-y-2 font-mono text-sm text-green-400">
 
-      {lines.map((line,i)=>(
-        <p key={i}>
+      {completedLines.map((line,index)=>(
+        <p key={index}>
           {">"} {line}
         </p>
       ))}
+
+
+      {currentLine < bootLines.length && (
+        <p>
+          {">"} {typedText}
+          <span className="animate-pulse">
+            _
+          </span>
+        </p>
+      )}
 
     </div>
   );

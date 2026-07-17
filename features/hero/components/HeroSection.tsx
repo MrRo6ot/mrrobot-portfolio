@@ -29,23 +29,23 @@ export default function HeroSection() {
 
         <motion.div {...fadeUp}>
 
-          <div className="mb-8">
-            <Terminal />
-          </div>
+
 
 
           <h1 className="text-5xl font-bold tracking-tight text-white md:text-7xl">
 
-            I am{" "}
+            I'm{" "}
 
             <span className="text-green-400">
-              MR.ROBOT
+              Mr.Robot
             </span>
 
           </h1>
 
 
-          <TypingText />
+          <div className="mb-8 mt-6">
+            <Terminal />
+          </div>
 
 
           <div className="mt-10 flex gap-4">
