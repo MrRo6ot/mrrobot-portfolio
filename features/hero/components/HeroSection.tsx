@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import TerminalCard from "./TerminalCard";
 import TypingText from "./TypingText";
+import { fadeUp, imageReveal } from "../animations";
 
 export default function HeroSection() {
   return (
@@ -20,11 +21,7 @@ export default function HeroSection() {
 
 
         {/* Text Side */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
+          <motion.div {...fadeUp}>
 
           <div className="mb-8">
             <TerminalCard />
@@ -62,9 +59,7 @@ export default function HeroSection() {
 
         {/* Image Side */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1 }}
+          {...imageReveal}
           className="flex justify-center"
         >
 
