@@ -30,3 +30,26 @@ export const imageReveal = {
     duration: 1,
   },
 };
+
+export const floating = {
+  animate: {
+    y: [0, -15, 0],
+  },
+
+  transition: {
+    duration: 4,
+    repeat: Infinity,
+    ease: "easeInOut",
+  },
+};
+
+export const imageFloat = {
+  animate: {
+    y: [0, -15, 0],
+    transition: {
+      duration: 4,
+      repeat: Infinity,
+      ease: "easeInOut",
+    },
+  },
+};
