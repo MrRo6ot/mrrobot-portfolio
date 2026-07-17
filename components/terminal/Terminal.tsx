@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { executeCommand } from "./engine";
+import BootSequence from "./BootSequence";
 
 type Line = {
   type: "command" | "output";
@@ -9,6 +10,7 @@ type Line = {
 };
 
 export default function Terminal() {
+  const [booted, setBooted] = useState(false);
   const [input, setInput] = useState("");
 
   const [history, setHistory] = useState<Line[]>([
@@ -46,6 +48,29 @@ export default function Terminal() {
     setInput("");
   }
 
+  if (!booted) {
+    return (
+      <div
+        className="
+        w-full
+        max-w-xl
+        rounded-xl
+        border
+        border-white/10
+        bg-black/60
+        p-5
+        backdrop-blur
+        shadow-2xl
+        "
+      >
+
+        <BootSequence
+          onComplete={() => setBooted(true)}
+        />
+
+      </div>
+    );
+  }
 
   return (
     <div

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-
+import ScanLine from "./ScanLine";
 import TypingText from "./TypingText";
 import CyberBackground from "./CyberBackground";
 
@@ -97,9 +97,12 @@ export default function HeroSection() {
         >
 
 
-          <motion.div
-            {...imageFloat}
-            className="relative h-[600px] w-[500px]"
+          <div
+            className="
+            relative
+            h-[600px]
+            w-[500px]
+            "
           >
 
 
@@ -123,21 +126,30 @@ export default function HeroSection() {
               "
             />
 
-
-
             {/* Character */}
 
-            <Image
-              src="/images/hero.png"
-              alt="MR.ROBOT"
-              fill
-              priority
-              sizes="(max-width:768px) 90vw, 500px"
-              className="object-contain"
-            />
+            <div
+              className="
+              absolute
+              inset-0
+            "
+            >
+
+              <Image
+                src="/images/hero.png"
+                alt="MR.ROBOT"
+                fill
+                priority
+                sizes="(max-width:768px) 90vw, 500px"
+                className="object-contain"
+              />
 
 
-          </motion.div>
+              <ScanLine />
+
+            </div>
+
+          </div>
 
 
         </motion.div>
