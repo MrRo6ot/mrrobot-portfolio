@@ -26,7 +26,6 @@ export default function CyberBackground() {
         "
       />
 
-
       {/* Cyan Glow */}
       <div
         className="
@@ -38,19 +37,6 @@ export default function CyberBackground() {
         rounded-full
         bg-cyan-500/10
         blur-[150px]
-        "
-      />
-
-
-      {/* Scan Line */}
-      <div
-        className="
-        absolute
-        inset-x-0
-        top-0
-        h-px
-        bg-green-400/40
-        shadow-[0_0_20px_#22c55e]
         "
       />
 

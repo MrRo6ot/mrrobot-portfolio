@@ -7,7 +7,7 @@ export default function Home() {
     <>
       <Header />
 
-      <main>
+      <main className="flex-1">
         <HeroSection />
       </main>
 

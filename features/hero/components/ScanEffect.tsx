@@ -2,29 +2,30 @@
 
 import { motion } from "framer-motion";
 
-export default function ScanLine() {
+export default function ScanEffect() {
   return (
     <motion.div
       initial={{
-        top: "0%",
+        top: "-10%",
+        opacity: 0,
       }}
       animate={{
-        top: "100%",
+        top: "110%",
+        opacity: [0, 1, 1, 0],
       }}
       transition={{
-        duration: 3,
-        repeat: Infinity,
-        ease: "linear",
+        duration: 6,
+        ease: "easeInOut",
       }}
       className="
       pointer-events-none
       absolute
-      left-[10%]
-      right-[10%]
+      left-0
+      right-0
       z-20
       h-1
-      bg-green-400/70
-      blur-sm
+      bg-green-400
+      shadow-[0_0_20px_#22c55e]
       "
     />
   );

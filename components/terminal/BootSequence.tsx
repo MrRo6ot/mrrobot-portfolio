@@ -9,7 +9,7 @@ const bootLines = [
   "Loading security modules...",
   "Checking vulnerabilities...",
   "Establishing secure connection...",
-  "Access granted ✓",
+  "Access granted [OK]",
 ];
 
 
@@ -38,10 +38,12 @@ export default function BootSequence({
       const timer = setTimeout(() => {
 
 
-        setCompletedLines((prev) => [
-          ...prev,
-          typedText,
-        ]);
+        if (currentLine < bootLines.length - 1) {
+          setCompletedLines((prev) => [
+            ...prev,
+            typedText,
+          ]);
+        }
 
 
         if(currentLine < bootLines.length - 1){
@@ -52,10 +54,9 @@ export default function BootSequence({
 
           setTimeout(() => {
             onComplete();
-          },650);
+          },300);
 
         }
-
 
       },100);
 

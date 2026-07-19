@@ -157,7 +157,7 @@ export default function Terminal() {
         <div className="flex">
 
           <span className="text-green-400">
-            root@root:~$
+            root@mrrobot:~$
           </span>
 
           <input

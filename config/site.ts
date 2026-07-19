@@ -7,7 +7,7 @@ export const siteConfig = {
   description:
     "Personal portfolio of MR.ROBOT — Full Stack Developer, Security Researcher and Technology Enthusiast.",
 
-  url: "https://mrrobot.dev",
+  url: "",
 
   links: {
     github: "",

@@ -14,7 +14,6 @@ export const fadeUp = {
   },
 };
 
-
 export const imageReveal = {
   initial: {
     opacity: 0,
@@ -28,18 +27,6 @@ export const imageReveal = {
 
   transition: {
     duration: 1,
-  },
-};
-
-export const floating = {
-  animate: {
-    y: [0, -15, 0],
-  },
-
-  transition: {
-    duration: 4,
-    repeat: Infinity,
-    ease: "easeInOut",
   },
 };
 
