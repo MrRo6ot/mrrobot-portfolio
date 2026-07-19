@@ -13,6 +13,8 @@ export default function Terminal() {
   const terminalRef = useRef<HTMLDivElement>(null);
   const [booted, setBooted] = useState(false);
   const [input, setInput] = useState("");
+  const [commandHistory, setCommandHistory] = useState<string[]>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
 
   const [history, setHistory] = useState<Line[]>([
     {
@@ -34,9 +36,32 @@ export default function Terminal() {
   function handleCommand() {
     if (!input.trim()) return;
 
+    setCommandHistory((prev) => [
+      ...prev,
+      input,
+    ]);
+
+    setHistoryIndex(-1);
 
     const result = executeCommand(input);
 
+    if (result.action === "clear") {
+
+      setHistory([
+        {
+          type: "output",
+          content: "Mr.Robot Terminal v1.0",
+        },
+        {
+          type: "output",
+          content: "Type 'help' to see available commands.",
+        },
+      ]);
+
+      setInput("");
+
+      return;
+    }
 
     setHistory((prev) => [
       ...prev,
@@ -44,7 +69,7 @@ export default function Terminal() {
         type: "command",
         content: input,
       },
-      ...result.map((line) => ({
+      ...result.output.map((line) => ({
         type: "output" as const,
         content: line,
       })),
@@ -165,9 +190,66 @@ export default function Terminal() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => {
+
               if (e.key === "Enter") {
                 handleCommand();
               }
+
+
+              if (e.key === "ArrowUp") {
+
+                e.preventDefault();
+
+
+                if (commandHistory.length === 0) {
+                  return;
+                }
+
+
+                const newIndex =
+                  historyIndex === -1
+                    ? commandHistory.length - 1
+                    : Math.max(historyIndex - 1, 0);
+
+
+                setHistoryIndex(newIndex);
+
+                setInput(
+                  commandHistory[newIndex]
+                );
+              }
+
+
+              if (e.key === "ArrowDown") {
+
+                e.preventDefault();
+
+
+                if (historyIndex === -1) {
+                  return;
+                }
+
+
+                const newIndex =
+                  historyIndex + 1;
+
+
+                if (newIndex >= commandHistory.length) {
+
+                  setHistoryIndex(-1);
+                  setInput("");
+
+                  return;
+                }
+
+
+                setHistoryIndex(newIndex);
+
+                setInput(
+                  commandHistory[newIndex]
+                );
+              }
+
             }}
             className="
             ml-2

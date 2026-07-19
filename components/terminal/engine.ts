@@ -1,18 +1,86 @@
-import { commands } from "./commands";
+import {
+  commands,
+} from "./commands";
 
-export function executeCommand(input: string) {
-  const command = input.trim().toLowerCase();
+
+export type TerminalResult = {
+  output: string[];
+  action?: "clear";
+};
+
+
+export function executeCommand(
+  input: string
+): TerminalResult {
+
+
+  const command =
+    input.trim().toLowerCase();
+
+
 
   if (!command) {
-    return [];
+    return {
+      output: [],
+    };
   }
 
-  if (command in commands) {
-    return commands[command as keyof typeof commands];
+
+
+  if (command === "clear") {
+
+    return {
+      output: [],
+      action: "clear",
+    };
+
   }
 
-  return [
-    `command not found: ${command}`,
-    "Type 'help' to see available commands.",
-  ];
+
+
+  if (command === "help") {
+
+    return {
+      output: [
+        "╭──── MR.ROBOT TERMINAL ────╮",
+        "",
+        "Available Commands:",
+        "",
+        ...commands.flatMap((cmd)=>[
+          `> ${cmd.name}`,
+          `  ${cmd.description}`,
+          "",
+        ]),
+        "╰──────────────────────────╯",
+      ],
+    };
+
+  }
+
+
+
+  const found =
+    commands.find(
+      (cmd)=>cmd.name === command
+    );
+
+
+
+  if(found){
+
+    return {
+      output: found.output,
+    };
+
+  }
+
+
+
+  return {
+    output:[
+      `command not found: ${command}`,
+      "Type 'help' to see available commands.",
+    ],
+  };
+
 }
